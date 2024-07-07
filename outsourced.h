@@ -8,11 +8,37 @@
 #ifndef _OUTSOURCED_H_
 #define _OUTSOURCED_H_
 
+#include <string>
+#include <vector>
+
 #include "interface.h"
+#include "eiface.h"
 #include "engine/iserverplugin.h"
+
+using std::string;
+using std::vector;
 
 namespace outsourced
 {
+	class Engine
+	{
+	public:
+		Engine();
+		~Engine() noexcept;
+
+		void ClientCommand( edict_t *pEntity, const char *cmd );
+
+		QueryCvarCookie_t StartQueryCvarValue( edict_t *pEntity, const char *pName );
+
+		// TODO: should probably be private
+		vector<string> clientCommands;
+
+		// TODO: should probably be private
+		vector<QueryCvarCookie_t> queryCvarCookies;
+	};
+
+	extern Engine gEngine;
+
 	class FakeVEngineServer : public IVEngineServer
 	{
 	public:
@@ -70,7 +96,7 @@ namespace outsourced
 
 		virtual void		ServerCommand( const char *str ) {};
 		virtual void		ServerExecute( void ) {};
-		virtual void		ClientCommand( edict_t *pEdict, const char *szFmt, ... ) {};
+		virtual void		ClientCommand( edict_t *pEdict, const char *szFmt, ... );
 
 		virtual void		LightStyle( int style, const char *val ) {};
 
@@ -181,7 +207,7 @@ namespace outsourced
 		
 		virtual bool IsLowViolence() { return false; };
 
-		virtual QueryCvarCookie_t StartQueryCvarValue( edict_t *pPlayerEntity, const char *pName ) { QueryCvarCookie_t q; return q; };
+		virtual QueryCvarCookie_t StartQueryCvarValue( edict_t *pPlayerEntity, const char *pName );
 
 		virtual void InsertServerCommand( const char *str ) {};
 
@@ -215,7 +241,7 @@ namespace outsourced
 		virtual bool IsPlayerNameLocked( const edict_t *pEdict ) { return false; };
 		virtual bool CanPlayerChangeName( const edict_t *pEdict ) { return false; };
 
-		virtual eFindMapResult FindMap( /* in/out */ char *pMapName, int nMapNameMax ) { return eFindMap_Found; };
+		virtual eFindMapResult FindMap( char *pMapName, int nMapNameMax ) { return eFindMap_Found; };
 		
 		virtual IReplaySystem *GetReplay() { return NULL; };
 	};
@@ -223,10 +249,11 @@ namespace outsourced
 	class FakeServerPluginHelpers : public IServerPluginHelpers
 	{
 	public:
-		virtual void CreateMessage( edict_t *pEntity, DIALOG_TYPE type, KeyValues *data, IServerPluginCallbacks *plugin ) {};
-		virtual void ClientCommand( edict_t *pEntity, const char *cmd ) {};
+		virtual void CreateMessage( edict_t *pEntity, DIALOG_TYPE type, KeyValues *data, IServerPluginCallbacks *plugin );
+		virtual void ClientCommand( edict_t *pEntity, const char *cmd );
 
-		virtual QueryCvarCookie_t StartQueryCvarValue( edict_t *pEntity, const char *pName ) { QueryCvarCookie_t q; return q; };
+		virtual QueryCvarCookie_t StartQueryCvarValue( edict_t *pEntity, const char *pName );
 	};
 }
+
 #endif // _OUTSOURCED_H_
