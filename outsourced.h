@@ -1,19 +1,19 @@
 //========= Copyright © 2008-2024, Team Sandpit, All rights reserved. ============
 //
-// Purpose: Mock Source engine implementation
+// Purpose: Fake Source engine implementation
 //
 // $NoKeywords: $
 //================================================================================
 
-#ifndef _STUB_ENGINE_H_
-#define _STUB_ENGINE_H_
+#ifndef _OUTSOURCED_H_
+#define _OUTSOURCED_H_
 
 #include "interface.h"
 #include "engine/iserverplugin.h"
 
 namespace outsourced
 {
-	class MockEngine : public IVEngineServer
+	class FakeVEngineServer : public IVEngineServer
 	{
 	public:
 		virtual void		ChangeLevel( const char *s1, const char *s2 ) {};
@@ -220,7 +220,7 @@ namespace outsourced
 		virtual IReplaySystem *GetReplay() { return NULL; };
 	};
 
-	class MockServerPluginHelpers : public IServerPluginHelpers
+	class FakeServerPluginHelpers : public IServerPluginHelpers
 	{
 	public:
 		virtual void CreateMessage( edict_t *pEntity, DIALOG_TYPE type, KeyValues *data, IServerPluginCallbacks *plugin ) {};
@@ -229,4 +229,4 @@ namespace outsourced
 		virtual QueryCvarCookie_t StartQueryCvarValue( edict_t *pEntity, const char *pName ) { QueryCvarCookie_t q; return q; };
 	};
 }
-#endif // _STUB_ENGINE_H_
+#endif // _OUTSOURCED_H_
