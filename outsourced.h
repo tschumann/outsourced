@@ -26,6 +26,12 @@ namespace outsourced
 		Engine();
 		~Engine() noexcept;
 
+		void Reset();
+
+		edict_t *Engine::CreateEdict( int iForceEdictIndex = -1 );
+
+		void ClientPrintf( edict_t *pEdict, const char *szMsg );
+
 		void ClientCommand( edict_t *pEntity, const char *cmd );
 
 		QueryCvarCookie_t StartQueryCvarValue( edict_t *pEntity, const char *pName );
@@ -35,6 +41,14 @@ namespace outsourced
 
 		// TODO: should probably be private
 		vector<QueryCvarCookie_t> queryCvarCookies;
+
+		// TODO: should probably be private
+		string clientPrintf;
+	private:
+		bool isDedicatedServer;
+		bool isInEditMode;
+
+		vector<edict_t *> edicts;
 	};
 
 	extern Engine gEngine;
@@ -74,7 +88,7 @@ namespace outsourced
 
 		virtual INetChannelInfo* GetPlayerNetInfo( int playerIndex ) { return NULL; };
 
-		virtual edict_t		*CreateEdict( int iForceEdictIndex = -1 ) { return NULL; };
+		virtual edict_t		*CreateEdict( int iForceEdictIndex = -1 );
 		virtual void		RemoveEdict( edict_t *e ) {};
 
 		virtual void		*PvAllocEntPrivateData( long cb ) { return NULL; };
@@ -109,7 +123,7 @@ namespace outsourced
 		virtual bf_write	*UserMessageBegin( IRecipientFilter *filter, int msg_type ) { return NULL; };
 		virtual void		MessageEnd( void ) {};
 
-		virtual void		ClientPrintf( edict_t *pEdict, const char *szMsg ) {};
+		virtual void		ClientPrintf( edict_t *pEdict, const char *szMsg );
 
 		virtual void		Con_NPrintf( int pos, const char *fmt, ... ) {};
 		virtual void		Con_NXPrintf( const struct con_nprint_s *info, const char *fmt, ... ) {};
@@ -234,7 +248,7 @@ namespace outsourced
 
 		virtual INetChannelInfo* GetPlayerNetInfo( int playerIndex ) { return NULL; };
 
-		virtual edict_t		*CreateEdict( int iForceEdictIndex = -1 ) { return NULL; };
+		virtual edict_t		*CreateEdict( int iForceEdictIndex = -1 );
 		virtual void		RemoveEdict( edict_t *e ) {};
 
 		virtual void		*PvAllocEntPrivateData( long cb ) { return NULL; };
@@ -269,7 +283,7 @@ namespace outsourced
 		virtual bf_write	*UserMessageBegin( IRecipientFilter *filter, int msg_type ) { return NULL; };
 		virtual void		MessageEnd( void ) {};
 
-		virtual void		ClientPrintf( edict_t *pEdict, const char *szMsg ) {};
+		virtual void		ClientPrintf( edict_t *pEdict, const char *szMsg );
 
 		virtual void		Con_NPrintf( int pos, const char *fmt, ... ) {};
 		virtual void		Con_NXPrintf( const struct con_nprint_s *info, const char *fmt, ... ) {};

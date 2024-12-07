@@ -13,12 +13,35 @@ namespace outsourced
 {
 	Engine gEngine;
 
-	Engine::Engine()
+	Engine::Engine() : isDedicatedServer(false), isInEditMode(false)
 	{
 	}
 
 	Engine::~Engine() noexcept
 	{
+		for (edict_t *pEdict: gEngine.edicts)
+		{
+			delete pEdict;
+		}
+	}
+
+	void Engine::Reset()
+	{
+		clientPrintf = "";
+	}
+
+	edict_t *Engine::CreateEdict( int iForceEdictIndex )
+	{
+		edict_t *pEdict = new edict_t();
+
+		gEngine.edicts.push_back( pEdict );
+
+		return pEdict;
+	}
+
+	void Engine::ClientPrintf( edict_t *pEdict, const char *szMsg )
+	{
+		clientPrintf += szMsg;
 	}
 
 	void Engine::ClientCommand( edict_t *pEntity, const char *cmd )
@@ -38,6 +61,16 @@ namespace outsourced
 	///////////////////////////////
 	// Fake IVEngineServer below //
 	///////////////////////////////
+
+	edict_t *FakeVEngineServer::CreateEdict( int iForceEdictIndex )
+	{
+		return gEngine.CreateEdict( iForceEdictIndex );
+	}
+
+	void FakeVEngineServer::ClientPrintf( edict_t *pEdict, const char *szMsg )
+	{
+		gEngine.ClientPrintf( pEdict, szMsg );
+	}
 
 	void FakeVEngineServer::ClientCommand( edict_t *pEdict, const char *szFmt, ... )
 	{
