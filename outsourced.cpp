@@ -56,7 +56,6 @@ namespace outsourced
 		return gEngine.StartQueryCvarValue( pEntity, pName );
 	}
 
-
 	/////////////////////////////////////
 	// Fake IServerPluginHelpers below //
 	/////////////////////////////////////

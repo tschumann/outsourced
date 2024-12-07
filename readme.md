@@ -11,3 +11,5 @@ git submodule add https://github.com/tschumann/outsourced
 ```
 
 Then include `outsourced.cpp` and `outsourced.h` as part of the project.
+
+This uses the Metamod: Source macros of `SOURCE_ENGINE` and `SE_<BRANCHNAME>`
