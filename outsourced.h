@@ -216,7 +216,7 @@ namespace outsourced
 		virtual IChangeInfoAccessor *GetChangeAccessor( const edict_t *pEdict ) { return NULL; };
 
 		virtual QueryCvarCookie_t StartQueryCvarValue( edict_t *pPlayerEntity, const char *pName );
-#elif SOURCE_ENGINE == SE_HL2DM
+#elif SOURCE_ENGINE == SE_HL2DM || SOURCE_ENGINE == SE_TF2
 		virtual void		ChangeLevel( const char *s1, const char *s2 ) {};
 
 		virtual int			IsMapValid( const char *filename ) { return 0; };
