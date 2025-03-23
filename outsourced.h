@@ -419,6 +419,8 @@ namespace outsourced
 		virtual eFindMapResult FindMap( char *pMapName, int nMapNameMax ) { return eFindMap_Found; };
 		
 		virtual IReplaySystem *GetReplay() { return NULL; };
+
+		virtual void SetPausedForced( bool bPaused, float flDuration = -1.f ) {};
 #else
 #error Unsupported engine version
 #endif
