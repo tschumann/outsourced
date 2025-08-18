@@ -34,10 +34,15 @@ namespace outsourced
 
 		void ClientCommand( edict_t *pEntity, const char *cmd );
 
+		void ServerCommand( const char *cmd );
+
 		QueryCvarCookie_t StartQueryCvarValue( edict_t *pEntity, const char *pName );
 
 		// TODO: should probably be private
 		vector<string> clientCommands;
+
+		// TODO: should probably be private
+		vector<string> serverCommands;
 
 		// TODO: should probably be private
 		vector<QueryCvarCookie_t> queryCvarCookies;
@@ -109,7 +114,7 @@ namespace outsourced
 		virtual const char *SentenceGroupNameFromIndex( int groupIndex ) { return NULL; };
 		virtual float		SentenceLength( int sentenceIndex ) { return 0.0f; };
 
-		virtual void		ServerCommand( const char *str ) {};
+		virtual void		ServerCommand( const char *str );
 		virtual void		ServerExecute( void ) {};
 		virtual void		ClientCommand( edict_t *pEdict, const char *szFmt, ... );
 
@@ -125,8 +130,8 @@ namespace outsourced
 
 		virtual void		ClientPrintf( edict_t *pEdict, const char *szMsg );
 
-		virtual void		Con_NPrintf( int pos, const char *fmt, ... ) {};
-		virtual void		Con_NXPrintf( const struct con_nprint_s *info, const char *fmt, ... ) {};
+		virtual void		Con_NPrintf( int pos, const char *fmt, ... );
+		virtual void		Con_NXPrintf( const struct con_nprint_s *info, const char *fmt, ... );
 
 		virtual const char	*Cmd_Args( void ) { return NULL; };		
 		virtual int			Cmd_Argc( void ) { return 0; };		
@@ -134,7 +139,7 @@ namespace outsourced
 
 		virtual void		SetView( const edict_t *pClient, const edict_t *pViewent ) {};
 
-		virtual float		Time( void ) { return 0.0f; };
+		virtual float		Time( void );
 
 		virtual void		CrosshairAngle( const edict_t *pClient, float pitch, float yaw ) {};
 
@@ -173,7 +178,7 @@ namespace outsourced
 
 		virtual client_textmessage_t *TextMessageGet( const char *pName ) { return NULL; };
 
-		virtual void		LogPrint( const char *msg ) {};
+		virtual void		LogPrint( const char *msg );
 
 		virtual void		BuildEntityClusterList( edict_t *pEdict, PVSInfo_t *pPVSInfo ) {};
 
@@ -269,7 +274,7 @@ namespace outsourced
 		virtual const char *SentenceGroupNameFromIndex( int groupIndex ) { return NULL; };
 		virtual float		SentenceLength( int sentenceIndex ) { return 0.0f; };
 
-		virtual void		ServerCommand( const char *str ) {};
+		virtual void		ServerCommand( const char *str );
 		virtual void		ServerExecute( void ) {};
 		virtual void		ClientCommand( edict_t *pEdict, const char *szFmt, ... );
 
@@ -285,12 +290,12 @@ namespace outsourced
 
 		virtual void		ClientPrintf( edict_t *pEdict, const char *szMsg );
 
-		virtual void		Con_NPrintf( int pos, const char *fmt, ... ) {};
-		virtual void		Con_NXPrintf( const struct con_nprint_s *info, const char *fmt, ... ) {};
+		virtual void		Con_NPrintf( int pos, const char *fmt, ... );
+		virtual void		Con_NXPrintf( const struct con_nprint_s *info, const char *fmt, ... );
 
 		virtual void		SetView( const edict_t *pClient, const edict_t *pViewent ) {};
 
-		virtual float		Time( void ) { return 0.0f; };
+		virtual float		Time( void );
 
 		virtual void		CrosshairAngle( const edict_t *pClient, float pitch, float yaw ) {};
 
@@ -327,7 +332,7 @@ namespace outsourced
 
 		virtual client_textmessage_t *TextMessageGet( const char *pName ) { return NULL; };
 
-		virtual void		LogPrint( const char *msg ) {};
+		virtual void		LogPrint( const char *msg );
 
 		virtual void		BuildEntityClusterList( edict_t *pEdict, PVSInfo_t *pPVSInfo ) {};
 
@@ -409,7 +414,7 @@ namespace outsourced
 
 		virtual int GetServerVersion() const { return 0; };
 
-		virtual float GetServerTime() const { return 0.0f; };
+		virtual float GetServerTime() const;
 
 		virtual IServer *GetIServer() { return NULL; };
 
