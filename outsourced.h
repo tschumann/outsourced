@@ -26,7 +26,7 @@ namespace outsourced
 		Engine();
 		~Engine() noexcept;
 
-		void Reset();
+		void Initialise();
 
 		edict_t *Engine::CreateEdict( int iForceEdictIndex = -1 );
 

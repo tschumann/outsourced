@@ -26,9 +26,23 @@ namespace outsourced
 		}
 	}
 
-	void Engine::Reset()
+	/// <summary>
+	/// Clear everything back to a known good state. Ideally we'd just initialise a new Engine class per-test but the way this has
+	/// all been architected is to have a global engine that a bunch of functions can call back to.
+	/// </summary>
+	void Engine::Initialise()
 	{
+		clientCommands.clear();
+		serverCommands.clear();
+		queryCvarCookies.clear();
 		clientPrintf = "";
+
+		for (edict_t *pEdict: gEngine.edicts)
+		{
+			delete pEdict;
+		}
+
+		edicts.clear();
 	}
 
 	edict_t *Engine::CreateEdict( int iForceEdictIndex )
