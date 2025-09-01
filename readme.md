@@ -14,4 +14,4 @@ Then include `outsourced.cpp` and `outsourced.h` as part of the project.
 
 Include `outsourced.h` in your test files.
 
-This uses the Metamod: Source macros of `SOURCE_ENGINE` and `SE_<BRANCHNAME>`
+This uses `SE_<BRANCHNAME>` macros to determine which engine branch is in use. They don't fully match the Metamod: Source macros but are instead defined in `PossibleSDKs` in https://github.com/tschumann/dirtbot/blob/master/AMBuildScript
